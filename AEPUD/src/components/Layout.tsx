@@ -11,6 +11,7 @@ export default function Layout() {
           <NavLink to="/snack">Snack</NavLink>
           <NavLink to="/stock">Stock</NavLink>
           <NavLink to="/info">Info</NavLink>
+          <NavLink to="/infoadmin">InfoAdmin</NavLink>
           <NavLink to="/connexion">Connexion</NavLink>
         </nav>
       </header>

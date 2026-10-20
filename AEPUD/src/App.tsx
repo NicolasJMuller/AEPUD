@@ -7,6 +7,7 @@ import Evenement from "./pages/Evenement";
 import Info from "./pages/Info";
 import Snack from "./pages/Snack";
 import Stock from "./pages/Stock";
+import InfoAdmin from "./pages/InfoAdmin";
 import { useState } from 'react'
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
@@ -28,6 +29,8 @@ function App() {
           <Route path="info" element={<Info />} />
           <Route path="snack" element={<Snack />} />
           <Route path="stock" element={<Stock />} />
+          <Route path="infoadmin" element={<InfoAdmin />} />
+
           <Route path="*" element={<p>Page introuvable</p>} />
         </Route>
       </Routes>

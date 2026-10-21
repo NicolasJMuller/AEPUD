@@ -2,78 +2,158 @@ import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 import FactureImage from './FactureImage'
 
-function Factures() {
-  const [imageFacture, setImageFacture] = useState('')
+function Facture() {
+  const [image, setImage] = useState('/facture-exemple.jpg')
+  const [message, setMessage] = useState('')
+  const [chargement, setChargement] = useState(false)
 
-  function ajouterFacture(event: ChangeEvent<HTMLInputElement>) {
+  function modifierImage(event: ChangeEvent<HTMLInputElement>) {
     const fichier = event.target.files?.[0]
+
+    // Permet de sélectionner plusieurs fois le même fichier.
+    event.target.value = ''
 
     if (!fichier) {
       return
     }
 
     if (!fichier.type.startsWith('image/')) {
-      alert('Choisis une image de ta facture.')
+      setMessage('Choisis un fichier image.')
       return
     }
+
+    setMessage('')
+    setChargement(true)
 
     const lecteur = new FileReader()
 
     lecteur.onload = function () {
       if (typeof lecteur.result === 'string') {
-        setImageFacture(lecteur.result)
+        setImage(lecteur.result)
       }
+
+      setChargement(false)
+    }
+
+    lecteur.onerror = function () {
+      setMessage("Impossible de lire l'image.")
+      setChargement(false)
     }
 
     lecteur.readAsDataURL(fichier)
   }
 
+  function supprimerImage() {
+    setImage('')
+    setMessage('')
+  }
+
   return (
-    <section className="mx-auto w-full max-w-sm p-4">
-      <h2 className="mb-6 text-center text-2xl font-bold">
-        Mes factures
-      </h2>
+    <section
+      aria-labelledby="titre-facture"
+      className="mx-auto w-full max-w-lg p-4 sm:p-6"
+    >
 
-      <div className="flex flex-col gap-4">
+      {/* Carte */}
+      <article className="rounded-[36px] border-8 border-[#4525F5] p-4 sm:rounded-[44px] sm:border-10 sm:p-6">
+        <FactureImage image={image} />
 
-        <div>
-          <label
-            htmlFor="choisir-facture"
-            className="block cursor-pointer"
-          >
-            {imageFacture === '' ? (
-              <div className="flex aspect-square w-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-400 bg-slate-100">
-                <span
-                  aria-hidden="true"
-                  className="text-6xl text-slate-500"
-                >
-                  +
-                </span>
+        {/* Informations d'exemple */}
+        <dl className="mt-5 space-y-2 text-2xl font-black text-[#4525F5] sm:text-3xl">
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden="true"
+              className="text-4xl font-normal text-[#F079B5]"
+            >
+              ✳
+            </span>
 
-                <span className="mt-2 text-sm text-slate-600">
-                  Ajouter une facture
-                </span>
-              </div>
-            ) : (
-              <FactureImage
-                image={imageFacture}
-                description="Facture ajoutée"
-              />
-            )}
+            <dt className="sr-only">Nom</dt>
+            <dd>Nom</dd>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden="true"
+              className="text-4xl font-normal text-[#F079B5]"
+            >
+              ✳
+            </span>
+
+            <dt className="sr-only">Prix</dt>
+            <dd>Prix</dd>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden="true"
+              className="text-4xl font-normal text-[#F079B5]"
+            >
+              ✳
+            </span>
+
+            <dt className="sr-only">Date</dt>
+            <dd>
+              <time dateTime="2026-06-02">02.06.2026</time>
+            </dd>
+          </div>
+        </dl>
+
+        {/* Modifier et retirer l'image */}
+        <div className="mt-5 flex justify-end gap-4">
+          <label className="relative flex h-14 w-14 cursor-pointer items-center justify-center overflow-hidden rounded-2xl bg-[#F079B5] text-white hover:bg-[#E660A1] focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-[#4525F5]">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-7 w-7"
+            >
+              <path d="m16 3 5 5-12 12-6 1 1-6Z" />
+              <path d="m14 5 5 5" />
+            </svg>
+
+            <input
+              type="file"
+              accept="image/*"
+              aria-label="Modifier l'image de la facture"
+              onChange={modifierImage}
+              disabled={chargement}
+              className="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-wait"
+            />
           </label>
 
-          <input
-            id="choisir-facture"
-            type="file"
-            accept="image/*"
-            aria-label="Choisir une image de facture"
-            onChange={ajouterFacture}
-            className="mt-3 block w-full text-sm"
-          />
+          <button
+            type="button"
+            onClick={supprimerImage}
+            disabled={chargement || image === ''}
+            aria-label="Retirer l'image de la facture"
+            className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-2xl bg-[#F079B5] text-white hover:bg-[#E660A1] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4525F5] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="4"
+              strokeLinecap="round"
+              className="h-7 w-7"
+            >
+              <path d="M5 12h14" />
+            </svg>
+          </button>
         </div>
-      </div>
+      </article>
+
+      <p role="status" className="mt-3 text-center text-sm text-slate-600">
+        {chargement ? "Chargement de l'image…" : message}
+      </p>
     </section>
   )
 }
 
-export default Factures
+export default Facture
+

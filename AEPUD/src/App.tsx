@@ -8,6 +8,7 @@ import Info from "./pages/Info";
 import Snack from "./pages/Snack";
 import Stock from "./pages/Stock";
 import InfoAdmin from "./pages/InfoAdmin";
+import Soiree from "./pages/Soiree";
 import { useState } from 'react'
 import './App.css'
 
@@ -27,7 +28,7 @@ function App() {
           <Route path="snack" element={<Snack />} />
           <Route path="stock" element={<Stock />} />
           <Route path="infoadmin" element={<InfoAdmin />} />
-
+          <Route path="soiree/:id" element={<Soiree />} />
           <Route path="*" element={<p>Page introuvable</p>} />
         </Route>
       </Routes>

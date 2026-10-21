@@ -1,0 +1,16 @@
+[
+    {
+        "titreSoiree": "Soirée Halloween",
+        "imgSoiree": "/Medias/Soiree/halloween2.jpg",
+        "lieuSoiree": "Entracte II",
+        "dateSoiree": "2026-10-31",
+        "heureSoiree": "21:00"
+    },
+    {
+        "titreSoiree": "Soirée de Noel",
+        "imgSoiree": "/Medias/Soiree/noel2.jpg",
+        "lieuSoiree": "Salle des fêtes",
+        "dateSoiree": "2026-12-25",
+        "heureSoiree": "19:00"
+    }
+]

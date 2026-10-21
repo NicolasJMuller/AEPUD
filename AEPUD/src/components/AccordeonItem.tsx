@@ -5,6 +5,6 @@ const AccordeonItem = () => {
         <p className="text-blue-900">autres questions</p>
         </>
     )
-    #Route('/')
+    // #Route('/')
 }
 export default AccordeonItem

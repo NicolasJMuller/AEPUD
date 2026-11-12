@@ -2,8 +2,14 @@ import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 import FactureImage from './FactureImage'
 
-function Facture() {
-  const [image, setImage] = useState('/facture-exemple.jpg')
+interface FactureProps {
+  numero: number
+  imageInitiale: string
+  onSupprimer: () => void
+}
+
+function Facture({ numero, imageInitiale, onSupprimer }: FactureProps) {
+  const [image, setImage] = useState(imageInitiale)
   const [message, setMessage] = useState('')
   const [chargement, setChargement] = useState(false)
 
@@ -43,14 +49,9 @@ function Facture() {
     lecteur.readAsDataURL(fichier)
   }
 
-  function supprimerImage() {
-    setImage('')
-    setMessage('')
-  }
-
   return (
     <section
-      aria-labelledby="titre-facture"
+      aria-label={`Facture ${numero}`}
       className="mx-auto w-full max-w-lg p-4 sm:p-6"
     >
 
@@ -99,7 +100,7 @@ function Facture() {
           </div>
         </dl>
 
-        {/* Modifier et retirer l'image */}
+        {/* Modifier l'image ou supprimer la facture */}
         <div className="mt-5 flex justify-end gap-4">
           <label className="relative flex h-14 w-14 cursor-pointer items-center justify-center overflow-hidden rounded-2xl bg-[#F079B5] text-white hover:bg-[#E660A1] focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-[#4525F5]">
             <svg
@@ -128,10 +129,9 @@ function Facture() {
 
           <button
             type="button"
-            onClick={supprimerImage}
-            disabled={chargement || image === ''}
-            aria-label="Retirer l'image de la facture"
-            className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-2xl bg-[#F079B5] text-white hover:bg-[#E660A1] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4525F5] disabled:cursor-not-allowed disabled:opacity-50"
+            onClick={onSupprimer}
+            aria-label={`Supprimer la facture ${numero}`}
+            className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-2xl bg-[#F079B5] text-white hover:bg-[#E660A1] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4525F5]"
           >
             <svg
               aria-hidden="true"

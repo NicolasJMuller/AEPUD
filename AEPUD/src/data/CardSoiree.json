@@ -4,7 +4,7 @@
         "titreSoiree": "Soirée Halloween",
         "imgSoiree": "/Medias/Soiree/halloween2.jpg",
         "lieuSoiree": "Entracte II",
-        "dateSoiree": "2026.10.31",
+        "dateSoiree": "2026.11.20",
         "heureSoiree": "21:00",
         "description": "Une soirée au bar classique sans DJ, viens apprécier une soirée à base de discussion, billards et boissons",
         "payant": true
@@ -15,6 +15,26 @@
         "imgSoiree": "/Medias/Soiree/noel2.jpg",
         "lieuSoiree": "Salle des fêtes",
         "dateSoiree": "2026.12.25",
+        "heureSoiree": "19:00",
+        "description": "Une soirée au bar classique sans DJ, viens apprécier une soirée à base de discussion, billards et boissons",
+        "payant": false
+    },
+    {
+        "id": 3,
+        "titreSoiree": "Soirée de Noel",
+        "imgSoiree": "/Medias/Soiree/noel2.jpg",
+        "lieuSoiree": "Salle des fêtes",
+        "dateSoiree": "2026.12.24",
+        "heureSoiree": "19:00",
+        "description": "Une soirée au bar classique sans DJ, viens apprécier une soirée à base de discussion, billards et boissons",
+        "payant": false
+    },
+    {
+        "id": 4,
+        "titreSoiree": "Soirée de Noel",
+        "imgSoiree": "/Medias/Soiree/noel2.jpg",
+        "lieuSoiree": "Salle des fêtes",
+        "dateSoiree": "2026.12.23",
         "heureSoiree": "19:00",
         "description": "Une soirée au bar classique sans DJ, viens apprécier une soirée à base de discussion, billards et boissons",
         "payant": false

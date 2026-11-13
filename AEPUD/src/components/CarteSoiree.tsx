@@ -2,14 +2,38 @@ import VoirPlus from "./VoirPlus";
 import solidpin from "../assets/medias/soiree/solidpin.svg";
 import soirees from "../data/CardSoiree.json";
 
-const CarteSoiree = () => {
+type Props = { date: Date };
+
+const CarteSoiree = ({ date }: Props) => {
+  const annee = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+
+  // dateSoiree = "2026.10.31" → on garde celles qui commencent par "2026.10"
+  const soireesDuMois = soirees.filter((s) =>
+    s.dateSoiree.startsWith(`${annee}.${mm}`)
+  );
+
   return (
-    <div>
-      <section className="flex flex-col gap-12 px-12 py-6">
-        {soirees.map((s) => (
+    <div className="bg-[#F27EB4] py-6">
+
+      <h2 className="text-center text-2xl font-bold text-[#4227F2]">
+        {date
+          .toLocaleString("fr-FR", { month: "long", year: "numeric" })
+          .replace(/^./, (lettre) => lettre.toLocaleUpperCase("fr-FR"))}
+      </h2>
+
+
+      <section className="flex flex-col  px-12 py-6">
+        {soireesDuMois.length === 0 && (
+          <p className="text-center text-[#4227F2] font-bold">
+            Pas de soirée ce mois-ci pour l'instant
+          </p>
+        )}
+
+        {soireesDuMois.map((s) => (
           <article
-            key={s.titreSoiree}
-            className="@container relative mx-auto mt-10 w-full max-w-md"
+          key={s.id}
+          className="@container relative mx-auto mt-10 w-full max-w-md m-4"
           >
             {/* Fond bleu (couche 0) */}
             <div className="absolute inset-0 z-0 rounded-[8cqw] bg-[#4227F2]" />

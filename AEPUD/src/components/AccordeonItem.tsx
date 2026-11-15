@@ -16,7 +16,7 @@ const AccordeonItem = ({ question, reponse, index, isOpen, onToggle }: Props) =>
             <button
                 onClick={onToggle}
                 aria-expanded={isOpen}
-                className={`flex w-full items-center gap-4 px-6 py-6 text-left text-white font-bold text-lg ${
+                className={`flex w-full items-center gap-4 px-6 py-6 text-left text-whitetext-lg ${
                     isPink ? "bg-[#F27EB4]" : "bg-[#4227F2]"
                 }`}
             >
@@ -27,7 +27,7 @@ const AccordeonItem = ({ question, reponse, index, isOpen, onToggle }: Props) =>
                         isOpen ? "rotate-90" : "rotate-0"
                     }`}
                 />
-                <span className="font-lilita">{question}</span>
+                <span className="text-white text-xl leading-6">{question}</span>
             </button>
 
             <div
@@ -36,7 +36,7 @@ const AccordeonItem = ({ question, reponse, index, isOpen, onToggle }: Props) =>
                 }`}
             >
                 <div className="overflow-hidden">
-                    <p className="px-6 py-4 text-gray-800">{reponse}</p>
+                    <p className="px-8 py-4 text-lg font-InterRegular text-[#4227F2]">{reponse}</p>
                 </div>
             </div>
         </div>

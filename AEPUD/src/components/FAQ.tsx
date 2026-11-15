@@ -6,7 +6,7 @@ const Accordeon = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     return (
-        <div className="mx-auto max-w-2xl">
+        <div className="font-LilitaOne">
             {faq.map((item, i) => (
                 <AccordeonItem
                     key={item.question}

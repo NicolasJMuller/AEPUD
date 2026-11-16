@@ -22,7 +22,8 @@ Les empreintes sont dans `api/config/demo-users.json`. Les clés de développeme
 ## Première migration MySQL
 
 Après le pull, installer les dépendances avec `composer --working-dir=api install --no-dev`.
-Sur le serveur, fournir `DATABASE_URL` au terminal PHP avec le format
+Renseigner `DATABASE_URL` dans `api/.env` (ignoré par Git), ou directement dans
+l’environnement du serveur, avec le format
 `mysql://UTILISATEUR:MOT_DE_PASSE@localhost/NOM_BASE?charset=utf8mb4`.
 Encoder les caractères spéciaux dans l’identifiant et le mot de passe pour une URL.
 Sur Bash, on peut saisir l’URL sans l’afficher ni l’enregistrer dans l’historique

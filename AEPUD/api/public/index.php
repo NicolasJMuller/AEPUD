@@ -4,7 +4,7 @@ use App\Kernel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-require dirname(__DIR__).'/vendor/autoload.php';
+require dirname(__DIR__).'/config/bootstrap.php';
 
 $kernel = new Kernel($_SERVER['APP_ENV'] ?? 'prod', false);
 $request = Request::createFromGlobals();

@@ -50,7 +50,8 @@ final class Kernel extends BaseKernel
             'token_ttl' => 3600,
         ]);
         $container->services()->set(SessionController::class)->public()->args([service('security.helper')]);
-        $container->services()->set(ProductController::class)->public()->args([service('doctrine.orm.entity_manager')]);
+        $container->services()->set(ProductController::class)->public()
+            ->args([service('doctrine.orm.entity_manager'), service('router')]);
     }
 
     private function configureRoutes(RoutingConfigurator $routes): void
@@ -59,13 +60,6 @@ final class Kernel extends BaseKernel
         foreach (['me', 'user', 'admin'] as $route) {
             $routes->add('api_'.$route, '/api/'.$route)->methods(['GET'])->controller(SessionController::class);
         }
-        $routes->add('api_products_list', '/api/products')->methods(['GET'])->controller(ProductController::class.'::list');
-        $routes->add('api_products_create', '/api/products')->methods(['POST'])->controller(ProductController::class.'::create');
-        foreach (['show' => 'GET', 'update' => 'PUT', 'delete' => 'DELETE'] as $action => $method) {
-            $routes->add('api_products_'.$action, '/api/products/{id}')
-                ->requirements(['id' => '[1-9][0-9]{0,9}'])
-                ->methods([$method])
-                ->controller(ProductController::class.'::'.$action);
-        }
+        $routes->import(ProductController::class, 'attribute');
     }
 }

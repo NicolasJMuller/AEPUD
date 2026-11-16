@@ -3,3 +3,7 @@
 /config/jwt/
 /config/users.json
 /config/users.json.lock
+/.env
+/.env.local
+/.env.*.local
+/.env.local.php

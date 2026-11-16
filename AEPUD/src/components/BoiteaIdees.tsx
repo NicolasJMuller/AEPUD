@@ -1,22 +1,19 @@
 import { useState } from "react";
+import type { FormEvent } from "react";
 
 const DASH_BG = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='28'%3E%3Crect x='0' y='26' width='6' height='2' fill='%23F472B6'/%3E%3C/svg%3E")`;
 
 export default function BoiteaIdees() {
     const [name, setName] = useState("");
     const [suggestions, setSuggestions] = useState("");
-    const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+    const [status, setStatus] = useState<"idle" | "sent" | "error">("idle");
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setStatus("sending");
         try {
-            // 👉 remplace par ton appel API
-            // await fetch("/api/suggestions", {
-            //   method: "POST",
-            //   headers: { "Content-Type": "application/json" },
-            //   body: JSON.stringify({ name, suggestions }),
-            // });
+            const key = "aepud.suggestions";
+            const saved = JSON.parse(localStorage.getItem(key) ?? "[]") as { name: string; suggestions: string }[];
+            localStorage.setItem(key, JSON.stringify([...saved, { name: name.trim(), suggestions: suggestions.trim() }]));
             setStatus("sent");
             setName("");
             setSuggestions("");
@@ -88,14 +85,13 @@ export default function BoiteaIdees() {
                 <div className="relative z-20 min-h-[137px] bg-[#F27EB4] pl-6 pr-12 pt-4">
                     <div className="flex items-center justify-end gap-3">
                         {status === "sent" && (
-                            <span className="text-xs font-medium text-[#4A26F0]">C'est dans la boîte !</span>
+                            <span className="text-xs font-medium text-[#4A26F0]">Suggestion enregistrée dans ce navigateur.</span>
                         )}
                         {status === "error" && (
                             <span className="text-xs font-medium text-[#4A26F0]">Erreur, réessaie.</span>
                         )}
                         <button
                             type="submit"
-                            disabled={status === "sending"}
                             style={{ fontFamily: '"Lilita One", sans-serif' }}
                             className="flex items-center gap-3 rounded-lg bg-[#4A26F0] px-4 py-2 text-sm uppercase tracking-wide text-white disabled:opacity-60"
                         >

@@ -8,7 +8,7 @@ export default function Soiree() {
         return (
             <div className="p-6">
                 <p>Soirée introuvable.</p>
-                <Link to="/" className="underline">Retour</Link>
+                <Link to="/evenement" className="underline">Retour</Link>
             </div>
         );
     }

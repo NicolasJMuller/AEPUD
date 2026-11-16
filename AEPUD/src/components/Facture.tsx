@@ -4,12 +4,11 @@ import FactureImage from './FactureImage'
 
 interface FactureProps {
   numero: number
-  imageInitiale: string
   onSupprimer: () => void
 }
 
-function Facture({ numero, imageInitiale, onSupprimer }: FactureProps) {
-  const [image, setImage] = useState(imageInitiale)
+function Facture({ numero, onSupprimer }: FactureProps) {
+  const [image, setImage] = useState('')
   const [message, setMessage] = useState('')
   const [chargement, setChargement] = useState(false)
 

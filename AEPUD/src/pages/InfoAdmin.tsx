@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import Bureau from '../components/Bureau'
 import Facture from '../components/Facture'
 
 function InfoAdmin() {
@@ -16,12 +17,14 @@ function InfoAdmin() {
 
   return (
     <main className="min-h-screen">
-      <div className="p-4 sm:p-6">
+      <Bureau />
+      <div className="mx-auto mb-6 flex w-full max-w-lg items-center justify-between gap-4 px-4 pt-2 sm:mb-4 sm:px-6">
+        <h2 className="text-3xl font-black text-[#4525F5] sm:text-4xl">Factures</h2>
         <button
           type="button"
           aria-label="Ajouter une facture"
           onClick={ajouterFacture}
-          className="flex h-24 w-24 cursor-pointer items-center justify-center rounded-2xl bg-[#F079B5] text-white hover:bg-[#E660A1] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4525F5] sm:h-40 sm:w-40 sm:rounded-[28px]"
+          className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-2xl bg-[#F079B5] text-white hover:bg-[#E660A1] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4525F5]"
         >
           <svg
             aria-hidden="true"
@@ -30,7 +33,7 @@ function InfoAdmin() {
             stroke="currentColor"
             strokeWidth="4"
             strokeLinecap="round"
-            className="h-11 w-11 sm:h-[72px] sm:w-[72px]"
+            className="h-7 w-7"
           >
             <path d="M12 4.5v15M4.5 12h15" />
           </svg>
@@ -40,7 +43,6 @@ function InfoAdmin() {
         <Facture
           key={numero}
           numero={numero}
-          imageInitiale={numero <= 2 ? '/facture-exemple.jpg' : ''}
           onSupprimer={() => supprimerFacture(numero)}
         />
       ))}

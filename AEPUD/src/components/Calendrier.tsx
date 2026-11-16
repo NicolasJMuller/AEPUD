@@ -25,7 +25,6 @@ export default function Calendrier({ date, setDate }: Props) {
         ...Array.from({ length: nbJours }, (_, i) => i + 1),
     ];
 
-    // on retire samedi et dimanche
     const casesSemaine = cases.filter((_, i) => i % 7 < 5);
 
     const changerMois = (delta: number) => setDate(new Date(annee, mois + delta, 1));
@@ -38,32 +37,40 @@ export default function Calendrier({ date, setDate }: Props) {
     };
 
     return (
-        <div className="w-5/6 max-w-md mx-auto rounded-3xl overflow-hidden bg-white">
-            {/* header rose, sans bordure */}
-            <div className="bg-pink-400 text-white flex justify-between items-center px-4 py-4">
-                <button onClick={() => changerMois(-1)}>◀</button>
-                <h2 className="text-2xl font-bold">{MOIS[mois]} {annee}</h2>
-                <button onClick={() => changerMois(1)}>▶</button>
+        <div className="relative isolate pt-[4cqw]">
+            <span aria-hidden="true" className="absolute left-[12%] top-0 -z-10 h-[7cqw] w-[5cqw] rounded-full bg-[#F27EB4]" />
+            <span aria-hidden="true" className="absolute right-[12%] top-0 -z-10 h-[7cqw] w-[5cqw] rounded-full bg-[#F27EB4]" />
+            <div className="relative z-10 flex min-h-[16cqw] items-center justify-between gap-2 rounded-t-[6cqw] border-2 border-sky-500 bg-[#F27EB4] px-[4cqw] text-white">
+                <button type="button" aria-label="Mois précédent" onClick={() => changerMois(-1)} className="grid size-[9cqw] min-w-8 place-items-center">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" className="w-[6cqw] fill-current">
+                        <path d="M18 2v20L3 12Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                    </svg>
+                </button>
+                <h2 className="text-center font-LilitaOne text-[clamp(1.125rem,5.8cqw,2.125rem)] leading-none">{MOIS[mois]} {annee}</h2>
+                <button type="button" aria-label="Mois suivant" onClick={() => changerMois(1)} className="grid size-[9cqw] min-w-8 place-items-center">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" className="w-[6cqw] rotate-180 fill-current">
+                        <path d="M18 2v20L3 12Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                    </svg>
+                </button>
             </div>
-
-            {/* corps avec la bordure bleue, sans le haut */}
-            <div className="grid grid-cols-5 text-center p-4 gap-y-2 text-indigo-600 font-bold border-8 border-t-0 border-indigo-600 rounded-b-3xl bg-white">
+            <div className="mx-px grid grid-cols-5 rounded-b-[6cqw] border-[3cqw] border-t-0 border-[#4227F2] bg-white py-[2cqw] text-center text-[clamp(0.875rem,4cqw,1.5rem)] font-semibold text-[#4227F2]">
                 {JOURS.map(j => (
-                    <div key={j} className="text-xl">{j}</div>
+                    <div key={j} className="py-[1cqw] font-LilitaOne text-[clamp(1rem,5.6cqw,2rem)]">{j}</div>
                 ))}
 
                 {casesSemaine.map((jour, i) => {
                     const soiree = jour ? trouverSoiree(jour) : undefined;
 
                     return (
-                        <div key={i} className="h-12 flex items-center justify-center">
+                        <div key={i} className="flex h-[15cqw] items-center justify-center">
                             {jour && (
                                 soiree ? (
                                     <Link
                                         to={`/soiree/${soiree.id}`}
-                                        className="relative w-12 h-12 flex items-center justify-center"
+                                        aria-label={soiree.titreSoiree}
+                                        className="relative flex size-full items-center justify-center"
                                     >
-                                        <Etoile className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 text-[#F27EB4] hover:scale-110 transition-transform" />
+                                        <Etoile className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[18cqw] max-w-[104%] text-[#F27EB4] hover:scale-110 transition-transform" />
                                         <span className="relative text-white">{jour}</span>
                                     </Link>
                                 ) : (

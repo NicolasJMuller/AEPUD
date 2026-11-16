@@ -1,4 +1,4 @@
-import arrowWhiteRight from "../medias/icons/arrowWhiteRight.svg";
+import arrowWhiteRight from "../medias/Icons/arrowWhiteRight.svg";
 
 type Props = {
     question: string;

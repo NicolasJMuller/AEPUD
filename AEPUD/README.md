@@ -1,4 +1,38 @@
-# React + TypeScript + Vite
+# AEPUD
+
+## Connexion en local
+
+L’API utilise PHP 8.2+, OpenSSL, Composer, Symfony et LexikJWTAuthenticationBundle.
+
+```sh
+composer --working-dir=api install
+npm install
+npm run dev
+```
+
+`npm run dev` lance React et l’API Symfony. Ouvre l’URL indiquée par Vite. La page `/connexion` affiche les deux comptes de test.
+
+| Compte | E-mail | Mot de passe |
+| --- | --- | --- |
+| User | `user@user.fr` | `user123` |
+| Admin | `admin@admin.fr` | `admin123` |
+
+Les empreintes sont dans `api/config/demo-users.json`. Les clés de développement sont générées au démarrage. Un redémarrage invalide les anciens jetons.
+
+## Routes de l’API
+
+| Méthode | Route | Accès |
+| --- | --- | --- |
+| POST | `/api/login_check` | Public. Attend un JSON avec `username` et `password`. Renvoie `{ "token": "…" }`. |
+| GET | `/api/me` | Tout compte authentifié. Renvoie son nom et ses rôles. |
+| GET | `/api/user` | `ROLE_USER` |
+| GET | `/api/admin` | `ROLE_ADMIN` |
+
+Le client conserve le JWT dans `sessionStorage` et le transmet dans l’en-tête `Authorization: Bearer <token>`. Le serveur répond `401` si l’identification est nécessaire et `403` si l’utilisateur connecté n’a pas le rôle requis. Le token expire au bout d’une heure.
+
+Pour un hébergement, remplace les comptes de démonstration avant d’exposer le site. Fournis les clés JWT dans `api/config/jwt` et sers React et `/api` sous la même origine en HTTPS. Fais pointer les requêtes API vers `api/public/index.php` et transmets l’en-tête `Authorization` à PHP. Les autres URL React doivent être réécrites vers `index.html`.
+
+## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

@@ -1,0 +1,10 @@
+{
+  "user@user.fr": {
+    "password": "$2y$12$rlO6Dj6GOUkCVe2VrqNg..kOP1x3CJWg0GyWgkAurJ10SjfXi7cJa",
+    "roles": ["ROLE_USER"]
+  },
+  "admin@admin.fr": {
+    "password": "$2y$12$8TEJPb142XBnyk1YbSs2Cuhh5K8JUaqPJW8wmyPF4DcxnXAx.zwwq",
+    "roles": ["ROLE_ADMIN"]
+  }
+}

@@ -1,6 +1,7 @@
-import Faq from "../components/Faq";
-import LogoAEPUDfaq from "../../src/medias/Logo/Logo_bleu_faq.png";
+import Faq from "../components/FAQ";
+import LogoAEPUDfaq from "../medias/Logo/Logo_bleu_faq.png";
 import BoiteaIdees from "../components/BoiteaIdees";
+
 export default function Info() {
   return (
     <div className="mx-auto max-w-2xl">

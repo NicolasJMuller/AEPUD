@@ -9,7 +9,8 @@ import Snack from "./pages/Snack";
 import Stock from "./pages/Stock";
 import InfoAdmin from "./pages/InfoAdmin";
 import Soiree from "./pages/Soiree";
-import { useState } from 'react'
+import AuthProvider from './auth/AuthProvider'
+import RequireAuth from './auth/RequireAuth'
 import './App.css'
 
 
@@ -17,21 +18,28 @@ import './App.css'
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Pas oublié de modifier dans layout */}
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Index />} />
-          <Route path="adherent" element={<Adherent />} />
-          <Route path="connexion" element={<Connexion />} />
-          <Route path="evenement" element={<Evenement />} />
-          <Route path="info" element={<Info />} />
-          <Route path="snack" element={<Snack />} />
-          <Route path="stock" element={<Stock />} />
-          <Route path="infoadmin" element={<InfoAdmin />} />
-          <Route path="soiree/:id" element={<Soiree />} />
-          <Route path="*" element={<p>Page introuvable</p>} />
-        </Route>
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="connexion" element={<Connexion />} />
+            <Route element={<RequireAuth />}>
+              <Route path="evenement" element={<Evenement />} />
+              <Route path="soiree/:id" element={<Soiree />} />
+              <Route path="*" element={<p>Page introuvable</p>} />
+            </Route>
+            <Route element={<RequireAuth role="ROLE_USER" />}>
+              <Route index element={<Index />} />
+              <Route path="info" element={<Info />} />
+              <Route path="snack" element={<Snack />} />
+            </Route>
+            <Route element={<RequireAuth role="ROLE_ADMIN" />}>
+              <Route path="adherent" element={<Adherent />} />
+              <Route path="stock" element={<Stock />} />
+              <Route path="infoadmin" element={<InfoAdmin />} />
+            </Route>
+          </Route>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

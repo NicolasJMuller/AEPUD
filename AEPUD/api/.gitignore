@@ -1,0 +1,5 @@
+/vendor/
+/var/
+/config/jwt/
+/config/users.json
+/config/users.json.lock

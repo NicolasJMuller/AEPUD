@@ -1,5 +1,5 @@
 import VoirPlus from "./VoirPlus";
-import solidpin from "../assets/medias/soiree/solidpin.svg";
+import solidpin from "../assets/medias/soiree/SolidPin.svg";
 import soirees from "../data/CardSoiree.json";
 
 type Props = { date: Date };

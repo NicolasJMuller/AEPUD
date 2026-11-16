@@ -1,0 +1,26 @@
+security:
+    password_hashers:
+        Symfony\Component\Security\Core\User\InMemoryUser: auto
+
+    firewalls:
+        login:
+            pattern: ^/api/login_check$
+            stateless: true
+            provider: json_users
+            json_login:
+                check_path: api_login_check
+                username_path: username
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        api:
+            pattern: ^/api(?:/|$)
+            stateless: true
+            provider: json_users
+            jwt: ~
+
+    access_control:
+        - { path: '^/api/login_check$', roles: PUBLIC_ACCESS, methods: [POST] }
+        - { path: '^/api/admin(?:/|$)', roles: ROLE_ADMIN }
+        - { path: '^/api/user(?:/|$)', roles: ROLE_USER }
+        - { path: '^/api(?:/|$)', roles: IS_AUTHENTICATED_FULLY }

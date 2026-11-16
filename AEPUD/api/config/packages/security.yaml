@@ -22,5 +22,6 @@ security:
     access_control:
         - { path: '^/api/login_check$', roles: PUBLIC_ACCESS, methods: [POST] }
         - { path: '^/api/admin(?:/|$)', roles: ROLE_ADMIN }
+        - { path: '^/api/products(?:/|$)', roles: ROLE_ADMIN, methods: [POST, PUT, DELETE] }
         - { path: '^/api/user(?:/|$)', roles: ROLE_USER }
         - { path: '^/api(?:/|$)', roles: IS_AUTHENTICATED_FULLY }

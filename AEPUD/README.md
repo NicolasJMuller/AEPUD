@@ -19,7 +19,32 @@ npm run dev
 
 Les empreintes sont dans `api/config/demo-users.json`. Les clés de développement sont générées au démarrage. Un redémarrage invalide les anciens jetons.
 
+## Première migration MySQL
+
+Après le pull, installer les dépendances avec `composer --working-dir=api install --no-dev`.
+Sur le serveur, fournir `DATABASE_URL` au terminal PHP avec le format
+`mysql://UTILISATEUR:MOT_DE_PASSE@localhost/NOM_BASE?charset=utf8mb4`.
+Encoder les caractères spéciaux dans l’identifiant et le mot de passe pour une URL.
+Sur Bash, on peut saisir l’URL sans l’afficher ni l’enregistrer dans l’historique
+avec `read -rsp 'DATABASE_URL : ' DATABASE_URL; export DATABASE_URL; printf '\n'`.
+
+```sh
+php api/bin/console doctrine:migrations:migrate --dry-run
+php api/bin/console doctrine:migrations:migrate --no-interaction
+```
+
+La migration crée `AE_PRODUCT` et initialise deux lignes, `coca` (24, 0,90) et
+`redbull` (3, 1,20). Doctrine enregistre la version exécutée dans sa table de suivi.
+Le site local et la connexion JWT fonctionnent sans `DATABASE_URL`.
+
 ## Routes de l’API
+
+Le catalogue de produits utilise l’entité Doctrine `App\Entity\Product` et
+`DATABASE_URL`. Les comptes connectés peuvent lire `GET /api/products` et
+`GET /api/products/{id}`. Les admins peuvent aussi créer avec `POST /api/products`,
+modifier avec `PUT /api/products/{id}` et supprimer avec `DELETE /api/products/{id}`.
+Les requêtes `POST` et `PUT` attendent un objet JSON, par exemple
+`{"name":"coca","stock":24,"price":"0.90"}`. Les prix sont des chaînes décimales.
 
 | Méthode | Route | Accès |
 | --- | --- | --- |

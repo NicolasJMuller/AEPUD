@@ -4,6 +4,9 @@
   "require": {
     "php": ">=8.2",
     "ext-openssl": "*",
+    "doctrine/dbal": "~4.3",
+    "doctrine/doctrine-migrations-bundle": "~3.4",
+    "doctrine/orm": "~3.5",
     "lexik/jwt-authentication-bundle": "^3.2",
     "symfony/console": "^7.4",
     "symfony/framework-bundle": "^7.4",
@@ -16,5 +19,8 @@
   "config": {
     "platform": { "php": "8.2.0" },
     "sort-packages": true
+  },
+  "require-dev": {
+    "symfony/maker-bundle": "~1.60"
   }
 }
